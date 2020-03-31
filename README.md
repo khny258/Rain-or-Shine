@@ -4,4 +4,4 @@ https://khny258.github.io/Rain/
 
 <strong>Desktop</strong>
 <br>
-<img src="desktop.png">
+<img src="assets/desktop.png">
