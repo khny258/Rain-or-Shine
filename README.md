@@ -22,3 +22,5 @@ We found success in not only finding APIs that were essential to the app, but we
 The major challenge was trying to connect all three APIs to do what we wanted them to do: show outdoor events on sunny days and show indoor events on rainy days. Since these three APIs couldn’t be any different, it was a bit of an effort to get them to work off one another.
 
 Once that was figured out, we then shifted our focus into the layout, giving the building continued success.
+<br>
+<a href"https://docs.google.com/presentation/d/1xfNxl-PiR1lALUKr-cThuAF_Pw-pQxHavgxNKxym_5I/edit#slide=id.g71e2b043e1_9_7" target="_blank">Rain or Shine Presentation</a>
