@@ -23,4 +23,5 @@ The major challenge was trying to connect all three APIs to do what we wanted th
 
 Once that was figured out, we then shifted our focus into the layout, giving the building continued success.
 <br>
-<a href="https://docs.google.com/presentation/d/1xfNxl-PiR1lALUKr-cThuAF_Pw-pQxHavgxNKxym_5I/edit#slide=id.g71e2b043e1_9_7" target="_blank">Rain or Shine Presentation</a>
+<br>
+<a href="https://docs.google.com/presentation/d/1xfNxl-PiR1lALUKr-cThuAF_Pw-pQxHavgxNKxym_5I/edit#slide=id.g71e2b043e1_9_7" target="_blank">Rain or Shine Presentation</a> 
