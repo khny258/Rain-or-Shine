@@ -10,6 +10,7 @@ https://khny258.github.io/Rain-or-Shine/
 
 # About Us
 
+https://khny258.github.io/Rain-or-Shine/about.html
 
 New York is one of the most active cities in the world where there’s always an event to attend, a new pop-up to check out, a seasonal activity to engage in, or a limited time museum exhibit to check out. The problem is that the weather always dictates when it’s better attend indoor or outdoor events, making it hard to find something to do that might be better to check out, depending on the forecast that day. This is where Rain or Shine comes in!
 
