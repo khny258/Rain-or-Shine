@@ -7,7 +7,6 @@ https://khny258.github.io/Rain-or-Shine/
 <img src="assets/1.png">
 <img src="assets/2.png">
 <img src="assets/3.png">
-<img src="assets/4.png">
 <br>
 <br>
 
@@ -37,3 +36,4 @@ Once that was figured out, we then shifted our focus into the layout, giving the
 * **Austin Axelsen** - [austinaxe](https://github.com/austinaxe)
 * **Brus Palaj** - [bruspdoee](https://github.com/bruspdoee)
 * **Kenny Huang** - [khny258](https://github.com/khny258)
+<img src="assets/4.png">
