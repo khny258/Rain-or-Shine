@@ -4,17 +4,12 @@ https://khny258.github.io/Rain-or-Shine/
 
 <strong>Desktop</strong>
 <br>
-<img src="assets/desktop.png">
+<img src="assets/1.png">
+<img src="assets/2.png">
+<img src="assets/3.png">
+<img src="assets/4.png">
 <br>
 <br>
-
-# About Us
-
-https://khny258.github.io/Rain-or-Shine/about.html
-
-New York is one of the most active cities in the world where there’s always an event to attend, a new pop-up to check out, a seasonal activity to engage in, or a limited time museum exhibit to check out. The problem is that the weather always dictates when it’s better attend indoor or outdoor events, making it hard to find something to do that might be better to check out, depending on the forecast that day. This is where Rain or Shine comes in!
-
-Rain or Shine is an app that will show the user what events they can attend, depending on the weather exclusively for that day and over the next week. This makes for proper planning for the user who wants to find something to do by themselves, or with friends and family members. This would also be useful for visitors who are looking for a genuine New York City experience outside of the usual tourist sites
 
 # Technology
 
@@ -35,3 +30,10 @@ The major challenge was trying to connect all three APIs to do what we wanted th
 Once that was figured out, we then shifted our focus into the layout, giving the building continued success.
 <br>
 <br>
+
+## Authors
+
+* **Antonio Berryman** - [taureanfighter](https://github.com/taureanfighter)
+* **Austin Axelsen** - [austinaxe](https://github.com/austinaxe)
+* **Brus Palaj** - [bruspdoee](https://github.com/bruspdoee)
+* **Kenny Huang** - [khny258](https://github.com/khny258)
