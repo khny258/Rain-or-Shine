@@ -1,172 +1,163 @@
 if (navigator.geolocation) {
-	navigator.geolocation.getCurrentPosition(function(position) {
-		var lat = position.coords.latitude;
-		var long = position.coords.longitude;
-		var corsUrl = "https://cors-anywhere.herokuapp.com/"
-		var apiKey = "16ed8c861f9ac550f753a3fd507835a8";
-		var api = "https://api.darksky.net/forecast/";
-		var url = corsUrl + api + apiKey + "/" + lat + "," + long  + "?daily";
+    navigator.geolocation.getCurrentPosition(function (position) {
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        var corsUrl = "https://cors-anywhere.herokuapp.com/";
+        var apiKey = "16ed8c861f9ac550f753a3fd507835a8";
+        var api = "https://api.darksky.net/forecast/";
+        var url = corsUrl + api + apiKey + "/" + lat + "," + long + "?daily";
 
-		//make farenheit temperature default temperature upon page load
+        //make farenheit temperature default temperature upon page load
 
-		var tempFahrenheit = true;
+        var tempFahrenheit = true;
 
-		//array to calculate each unit once and flip whenever user pleases
-		var temperature = {
-			fahrenheit: [],
-			celsius:[]
-		};
+        //array to calculate each unit once and flip whenever user pleases
+        var temperature = {
+            fahrenheit: [],
+            celsius: [],
+        };
 
-		function inputData(array){
-			//assigns either F or C to temperature unit
+        function inputData(array) {
+            //assigns either F or C to temperature unit
 
-			var tempUnit = tempFahrenheit ? "&deg;F" : "&deg;C";
+            var tempUnit = tempFahrenheit ? "&deg;F" : "&deg;C";
 
-			return $.each(array,function(index, value) {
-				$('.temp' + index).html(value + tempUnit);
-			});
-		}
+            return $.each(array, function (index, value) {
+                $(".temp" + index).html(value + tempUnit);
+            });
+        }
 
-		$('.convertTemp').click(function() {
-			tempFahrenheit =!tempFahrenheit;
+        $(".convertTemp").click(function () {
+            tempFahrenheit = !tempFahrenheit;
 
-			if (tempFahrenheit) {
-				inputData(temperature.fahrenheit);
-			} else {
-				inputData(temperature.celsius);
-			}
-		});
+            if (tempFahrenheit) {
+                inputData(temperature.fahrenheit);
+            } else {
+                inputData(temperature.celsius);
+            }
+        });
 
+        $.getJSON(url, function (json) {
+            //shows the following weather info
 
-		$.getJSON(url, function(json) {
-			//shows the following weather info
+            var fahrenheitTemp;
+            var celsiusTemp;
+            var tempData;
+            var icon;
+            var forecast;
+            var day;
+            var date;
 
-			var fahrenheitTemp;
-			var celsiusTemp;
-			var tempData;
-			var icon;
-			var forecast;
-			var day;
-			var date;
+            //loop through the array for the different days
 
-			//loop through the array for the different days
+            for (i = 0; i < json.daily.data.length; i++) {
+                fahrenheitTemp = Math.round(json.daily.data[i].apparentTemperatureMax);
+                celsiusTemp = Math.round((fahrenheitTemp - 32) / 1.8);
 
-			for (i = 0; i < json.daily.data.length; i++) {
-				fahrenheitTemp = Math.round(json.daily.data[i].apparentTemperatureMax);
-				celsiusTemp = Math.round((fahrenheitTemp - 32)/1.8);
+                temperature.celsius.push(celsiusTemp);
+                temperature.fahrenheit.push(fahrenheitTemp);
 
-				temperature.celsius.push(celsiusTemp);
-				temperature.fahrenheit.push(fahrenheitTemp);
+                //display appropriate icon upon load on page
 
-				//display appropriate icon upon load on page
+                icon = json.daily.data[i].icon;
+                $(".icon" + i).html("<i class='wi wi-forecast-io-" + icon + "'></i>");
 
-				icon = json.daily.data[i].icon;
-				$('.icon' + i).html("<i class='wi wi-forecast-io-" + icon + "'></i>");
+                //display abrieved data and display on page
 
-				//display abrieved data and display on page
+                forecast = json.daily.data[i].summary;
+                $(".forecast" + i).html(forecast);
 
-				forecast = json.daily.data[i].summary;
-				$('.forecast' + i).html(forecast);
+                //display day and date on page
 
-				//display day and date on page
+                day = moment().add(i, "day").format("ddd");
+                $(".day" + i).html(day);
 
-				day = moment().add(i, "day").format("ddd");
-				$('.day' + i).html(day);
+                date = moment().add(i, "day").format("Do");
+                $(".date" + i).html(date);
+            }
 
+            //display temperature data on page
+            inputData(temperature.fahrenheit);
+        });
 
-				date = moment().add(i, "day").format("Do");
-				$('.date' + i).html(date);
-			} 
+        //To get user's location using google maps API
 
-			//display temperature data on page
-			inputData(temperature.fahrenheit);
-	});
+        var googleMapsAPIKey = "AIzaSyCH2BPbBsLP25LfNlqo3C_Hp_QswPc1fsY";
 
-		//To get user's location using google maps API
+        var googleMapsUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=";
 
-		var googleMapsAPIKey = "AIzaSyCH2BPbBsLP25LfNlqo3C_Hp_QswPc1fsY";
+        var userAddress = googleMapsUrl + lat + "," + long + "&key=" + googleMapsAPIKey;
 
-		var googleMapsUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng=";
+        /*var searchUrl = */
+        var location;
 
-		var userAddress = googleMapsUrl + lat + "," + long + "&key=" + googleMapsAPIKey;
+        $.getJSON(userAddress, function (json) {
+            for (i = 0; i < json.results.length; i++) {
+                location = json.results[1].formatted_address;
+                $(".location").html(location);
+            }
+        });
 
-		/*var searchUrl = */
-		var location;
+        //display current time, date, month , year
 
-		$.getJSON(userAddress, function(json) {
-			for (i = 0; i <json.results.length; i++) {
-				location = json.results[1].formatted_address;
-				$('.location').html(location);
-			}
-		});
+        var dateTimeString = moment().format("LT");
+        $(".time").html(dateTimeString);
 
+        var date = moment().format("Do");
+        $(".date").html(date);
 
-		//display current time, date, month , year
+        var month = moment().format("MMMM");
+        $(".month").html(month);
 
-		var dateTimeString = moment().format("LT");
-		$('.time').html(dateTimeString);
-
-		var date = moment().format("Do");
-		$('.date').html(date);
-
-		var month = moment().format("MMMM");
-		$('.month').html(month);
-
-		var year = moment().format("YYYY");
-		$('.year').html(year);
-
-	});
+        var year = moment().format("YYYY");
+        $(".year").html(year);
+    });
 }
 
 var queryURL = "https://cors-anywhere.herokuapp.com/http://api.eventful.com/rest/events/search?app_key=zc9tCd5xHQ68P7wJ&where=40.7128,-74.0060&within=25&t=Today";
 
 $.ajax({
-	url: queryURL,
-	method: "GET"
-  }).then(function(response) {
-	// console.log(response);
-	
-	var eventResult = $(response).find("event");
-	// console.log(eventResult);
+    url: queryURL,
+    method: "GET",
+}).then(function (response) {
+    // console.log(response);
 
-	for (var i = 0; i < eventResult.length; i++) {
-		console.log(eventResult[i]);
-		// console.log(eventResult[i].children[36].firstElementChild.innerHTML);
-		console.log(i); 
+    var eventResult = $(response).find("event");
+    // console.log(eventResult);
 
-		var display = $("#display"); 
-		var eventDiv = document.createElement("div"); 
-		var eventTitle = document.createElement("h1"); 
-		var eventImage = document.createElement("img");
-		var eventLocation = document.createElement("p"); 
-		var eventTime = document.createElement("p"); 
-		var eventLink = document.createElement("a");
-		eventLink.href = eventResult[i].children[1].innerHTML;
-		eventLink.target = "_blank"; 
+    for (var i = 0; i < eventResult.length; i++) {
+        console.log(eventResult[i]);
+        // console.log(eventResult[i].children[36].firstElementChild.innerHTML);
+        console.log(i);
 
-		eventTitle.innerHTML = eventResult[i].children[0].innerHTML
-		eventLink.innerHTML = eventResult[i].children[1].innerHTML
-		eventLocation.innerHTML = eventResult[i].children[12].innerHTML
-		eventTime.innerHTML = eventResult[i].children[3].innerHTML
+        var display = $("#display");
+        var eventDiv = document.createElement("div");
+        var eventTitle = document.createElement("h1");
+        var eventImage = document.createElement("img");
+        var eventLocation = document.createElement("p");
+        var eventTime = document.createElement("p");
+        var eventLink = document.createElement("a");
+        eventLink.href = eventResult[i].children[1].innerHTML;
+        eventLink.target = "_blank";
 
-		if(eventResult[i].children[36].firstElementChild){
-			eventImage.src = eventResult[i].children[36].firstElementChild.innerHTML
-		}
-		else{
-			eventImage.src = "https://pbs.twimg.com/media/DsVJ-3EU8AASNtg?format=jpg&name=medium"; 
-		}
+        eventTitle.innerHTML = eventResult[i].children[0].innerHTML;
+        eventLink.innerHTML = eventResult[i].children[1].innerHTML;
+        eventLocation.innerHTML = eventResult[i].children[12].innerHTML;
+        eventTime.innerHTML = eventResult[i].children[3].innerHTML;
 
-		eventImage.className = "eventImageThumb";
+        if (eventResult[i].children[36].firstElementChild) {
+            eventImage.src = eventResult[i].children[36].firstElementChild.innerHTML;
+        } else {
+            eventImage.src = "https://pbs.twimg.com/media/DsVJ-3EU8AASNtg?format=jpg&name=medium";
+        }
 
-		display.append(eventDiv);
-		display.append(eventTitle); 
-		display.append(eventImage);
-		display.append(eventLink); 
-		display.append(eventLocation);
-		display.append(eventTime); 
+        eventImage.className = "eventImageThumb";
 
-	}
-
-	
+        display.append(eventDiv);
+        display.append(eventTitle);
+        display.append(eventImage);
+        display.append(eventLink);
+        display.append(eventLocation);
+        display.append(eventTime);
+    }
 });
-
